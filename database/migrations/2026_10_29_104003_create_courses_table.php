@@ -10,14 +10,12 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+   {
     Schema::create('courses', function (Blueprint $table) {
         $table->id();
-        $table->string('course_code')->unique();
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->integer('credits')->default(3);
-        $table->foreignId('lecturer_id')->nullable()->constrained('users')->onDelete('set null');
+        $table->string('code')->unique();
+        $table->string('name');
+        $table->integer('credits');
         $table->timestamps();
     });
 }

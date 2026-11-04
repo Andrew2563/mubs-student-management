@@ -2,14 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
-    protected $fillable = ['course_code', 'title', 'description', 'credits', 'lecturer_id'];
+    use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'name',
+        'credits',
+        'course_code',
+        'title',
+        'description',
+        'lecturer_id',
+    ];
 
     public function lecturer(): BelongsTo
     {
@@ -19,12 +29,5 @@ class Course extends Model
     public function registrations(): HasMany
     {
         return $this->hasMany(CourseRegistration::class);
-    }
-
-   public function students(): BelongsToMany
-    {
-        return $this->belongsToMany(Student::class, 'course_registrations')
-                    ->withPivot('id', 'academic_year', 'semester')
-                    ->withTimestamps();
     }
 }
